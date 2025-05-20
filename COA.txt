@@ -1,0 +1,67 @@
+Multiplication:
+INPUT:
+       (2050H) = 04H
+       (2051H) = 07H 
+       (2052H) = 02H 
+       (2053H) = 01H
+OUTPUT:
+        (2054H) = 08H
+        (2055H) = 12H
+        (2056H) = 07H
+        (2057H) = O0H
+
+
+LHLD 2050;
+SPHL;
+LHLD 2052;
+XCHG
+LXI H,0000H;
+LXI B,0000H;
+DAD SP;
+JNC 2013;
+INX B;
+DCX D;
+MOV A,E;
+ORA D
+JNZ 200E;
+SHLD 2054H;
+MOV L,C;
+MOV H,B;
+SHLD 2056H;
+
+hlt
+
+Division:
+INPUT:
+       (2050H) = 04H
+       (2051H) = 00H 
+       (2052H) = 02H 
+       (2053H) = 00H
+OUTPUT:
+        (2054H) = 02H
+        (2055H) = 00H
+        (2056H) = FEH
+        (2057H) = FFH 
+
+LXI B,0000H;
+LHLD 2052H;
+XCHG;
+LHLD 2050H;
+MOV A,L;
+SUB E;
+MOV L,A;
+MOV A,H;
+SBB D;
+MOV H,A;
+JC 2017;
+INX B;
+JMP 200BH;
+DAD D;
+SHLD 2056H;
+MOV L,C;
+MOV H,B;
+SHLD 2054H;
+HLT
+
+
+

@@ -1,0 +1,33 @@
+jmp start
+
+; Data
+DB 12H, 34H     ; First 16-bit number (change as needed)
+DB 56H, 78H     ; Second 16-bit number (change as needed)
+
+; Code
+start: nop
+ORG 0000H ; Origin address
+
+MUL16BIT:
+    MVI C, 10H   ; Set loop counter (10H = 16 in decimal)
+    LXI H, 2000H ; Load the memory location of the first 16-bit number (change as needed)
+    LXI D, 3000H ; Load the memory location of the second 16-bit number (change as needed)
+    LXI B, 0000H ; Initialize the result to 0
+
+LOOP:
+    MOV A, M     ; Load the first byte of the first number into the accumulator
+    MVI E, 00H   ; Clear the carry flag
+    MOV B, M     ; Load the first byte of the second number into register B
+    ADD B        ; Add the contents of B to the accumulator
+    JNC NEXT ; If no carry, skip the next instruction
+    INR E        ; Increment E to account for carry
+NEXT:
+    MOV M, A     ; Store the result in memory
+    INX H        ; Move to the next byte of the first number
+    INX D        ; Move to the next byte of the second number
+    DCR C        ; Decrement the loop counter
+    JNZ LOOP ; If the loop counter is not zero, repeat the loop
+
+    HLT          ; Halt the program
+
+

@@ -1,0 +1,1 @@
+C:\Windows\System32\cmd.exe /c "SET XDG_DATA_DIRS=%XDG_DATA_DIRS%;share; && START /D ^"D:\SY-ACADEMICS\COA LAB\GNU\GNUSim8085^" bin\gnusim8085.exe"
